@@ -41,7 +41,6 @@ export default function Home() {
   });
 
   const [weatherInfo, setWeatherInfo] = useState<any>({});
-  console.log(latitude, longitude);
 
   return (
     <>

@@ -4,35 +4,47 @@ import snow from "../assets/icons/snow.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+interface Props {
+  weatherInfo: any;
+  key: number;
+  setLatitude: any;
+  setLongitude: any;
+}
+
 export default function WeatherCard({
   weatherInfo,
-  index,
+  key,
   setLatitude,
   setLongitude,
-}) {
+}: Props) {
   function getIsRainToday() {
-    console.log(!!weatherInfo?.hourly.snowfall.reduce((a, b) => a + b, 0) || 0);
-    return !!weatherInfo?.hourly.rain.reduce((a, b) => a + b, 0) || 0;
+    return (
+      !!weatherInfo?.hourly.rain.reduce((a: number, b: number) => a + b, 0) || 0
+    );
   }
 
   function getIsSnowfallToday() {
-    console.log(!!weatherInfo?.hourly.snowfall.reduce((a, b) => a + b, 0) || 0);
-    return !!weatherInfo?.hourly.snowfall.reduce((a, b) => a + b, 0) || 0;
+    return (
+      !!weatherInfo?.hourly.snowfall.reduce(
+        (a: number, b: number) => a + b,
+        0
+      ) || 0
+    );
   }
-  const [isRainyToday, setIsRainyToday] = useState(false);
+  const [isRainyToday, setIsRainyToday] = useState<boolean>(false);
   const [isSnowfallToday, setIsSnowFallToday] = useState(false);
   useEffect(() => {
     if (weatherInfo === null) {
       return;
     }
-    setIsSnowFallToday((prev) => getIsSnowfallToday());
-    setIsRainyToday((prev) => getIsRainToday());
+    setIsSnowFallToday((prev) => !!getIsSnowfallToday());
+    setIsRainyToday((prev) => !!getIsRainToday());
   }, [weatherInfo]);
 
   return (
     <div
       className=" bg-sky-100 shadow-lg cursor-pointer rounded-xl w-64 border-2"
-      key={index}
+      key={key}
       onClick={() => {
         setLatitude(weatherInfo?.latitude);
         setLongitude(weatherInfo?.longitude);

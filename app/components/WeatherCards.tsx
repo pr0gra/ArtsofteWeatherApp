@@ -2,8 +2,18 @@ import { useState, useEffect } from "react";
 
 import WeatherCard from "./WeatherCard";
 
-export function WeatherCards({ weatherInfo, setLatitude, setLongitude }) {
-  const [weatherCards, setWeatherCards] = useState([]);
+interface Props {
+  weatherInfo: object;
+  setLatitude: any;
+  setLongitude: any;
+}
+
+export function WeatherCards({
+  weatherInfo,
+  setLatitude,
+  setLongitude,
+}: Props) {
+  const [weatherCards, setWeatherCards] = useState<any>([]);
   useEffect(() => {
     if (weatherInfo === null) {
       return;
@@ -11,17 +21,17 @@ export function WeatherCards({ weatherInfo, setLatitude, setLongitude }) {
     if (weatherCards.length >= 5) {
       setWeatherCards([]);
     }
-    setWeatherCards((current) => [...current, weatherInfo]);
+    setWeatherCards((current: any) => [...current, weatherInfo]);
   }, [weatherInfo]);
   return (
     <div className="mt-10 flex justify-center gap-6">
-      {weatherCards.map((weatherInfo, index) => {
+      {weatherCards.map((weatherInfo: object, index: number) => {
         return (
           <WeatherCard
             setLatitude={setLatitude}
             setLongitude={setLongitude}
             weatherInfo={weatherInfo}
-            index={index}
+            key={index}
           />
         );
       })}
