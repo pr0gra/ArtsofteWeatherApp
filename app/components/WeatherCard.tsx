@@ -3,19 +3,24 @@ import sun from "../assets/icons/sun.png";
 import snow from "../assets/icons/snow.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import cx from "classnames";
 
 interface Props {
   weatherInfo: any;
-  key: number;
+  index: number
   setLatitude: any;
   setLongitude: any;
+  chosenWeatherCard: any;
+  setChosenWeatherCards: any;
 }
 
 export default function WeatherCard({
+  chosenWeatherCard,
+  setChosenWeatherCards,
   weatherInfo,
-  key,
   setLatitude,
   setLongitude,
+  index,
 }: Props) {
   function getIsRainToday() {
     return (
@@ -40,12 +45,12 @@ export default function WeatherCard({
     setIsSnowFallToday((prev) => !!getIsSnowfallToday());
     setIsRainyToday((prev) => !!getIsRainToday());
   }, [weatherInfo]);
-
+  console.log(index, chosenWeatherCard)
   return (
     <div
-      className=" bg-sky-100 shadow-lg cursor-pointer rounded-xl w-64 border-2"
-      key={key}
+      className={cx("bg-sky-100 shadow-lg cursor-pointer rounded-xl w-64 border-2", chosenWeatherCard === index && "shadow-lg shadow-cyan-500/50")}
       onClick={() => {
+        setChosenWeatherCards(index)
         setLatitude(weatherInfo?.latitude);
         setLongitude(weatherInfo?.longitude);
       }}

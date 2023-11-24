@@ -41,7 +41,8 @@ export default function Home() {
   });
 
   const [weatherInfo, setWeatherInfo] = useState<any>({});
-
+  const [chosenWeatherCard, setChosenWeatherCard] = useState<any>(0);
+  console.log(chosenWeatherCard, "card")
   return (
     <>
       <header className="bg-cyan-900 flex h-32 justify-between px-20  text-white items-center">
@@ -89,6 +90,8 @@ export default function Home() {
       </header>
       <main className="px-20">
         <WeatherCards
+        chosenWeatherCard={chosenWeatherCard}
+        setChosenWeatherCard={setChosenWeatherCard}
           weatherInfo={
             Object.entries(weatherInfo).length === 0 ? null : weatherInfo
           }
@@ -98,7 +101,7 @@ export default function Home() {
 
         <div className="flex justify-center mt-10">
           {Object.entries(weatherInfo).length !== 0 && (
-            <WeatherMap latitude={latitude} longitude={longitude} />
+            <WeatherMap  latitude={latitude} longitude={longitude} />
           )}
         </div>
       </main>
